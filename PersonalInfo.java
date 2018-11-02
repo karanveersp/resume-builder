@@ -13,10 +13,7 @@ public class PersonalInfo extends ResumeElement {
 	private String street2;
 	private String city;
 	private String state;
-	private int zip;
-	
-	
-	
+	private String zip;
 	
 	/**
 	 * Constructor with parameters
@@ -30,7 +27,7 @@ public class PersonalInfo extends ResumeElement {
 	 * @param zip
 	 */
 	public PersonalInfo(String firstName, String lastName, String email, String street1, String street2, String city, String state,
-			int zip) {
+			String zip) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
@@ -79,7 +76,7 @@ public class PersonalInfo extends ResumeElement {
 	/**
 	 * @return the zip
 	 */
-	public int getZip() {
+	public String getZip() {
 		return zip;
 	}
 
