@@ -52,10 +52,53 @@ public class ResumeBuilderController {
 		return instance;
 	}
 	
+	/**
+	 * Pass values to the controller which then passes
+	 * to the model.
+	 * @param firstName
+	 * @param lastName
+	 * @param email
+	 * @param street1
+	 * @param street2
+	 * @param city
+	 * @param state
+	 * @param zip
+	 */
+	public void setPersonalInfo(String firstName, String lastName, String email, String street1, String street2, String city,
+			String state, String zip) {
+		getModel().setPersonalInfo(firstName, lastName, email, street1, street2, city, state, zip);
+	}
+
+	/**
+	 * Pass values to the controller which then passes
+	 * to the model.
+	 * @param summary
+	 */
+	public void setSummary(String summary) {
+		getModel().setSummary(summary);
+	}
+
+	/**
+	 * Pass values to the controller which then passes
+	 * to the model.
+	 * @param objective
+	 */
 	public void setObjective(String objective) {
 		getModel().setObjective(objective);
 	}
 	
+	/**
+	 * Pass values to the controller which then passes
+	 * to the model.
+	 * @param schoolName
+	 * @param schoolCity
+	 * @param schoolState
+	 * @param degree
+	 * @param major
+	 * @param gradMonth
+	 * @param gradYear
+	 * @param isAnticipated
+	 */
 	public void setEducation(String schoolName, String schoolCity, String schoolState, String degree, String major, String gradMonth, String gradYear, boolean isAnticipated) {
 		getModel().setEducation(schoolName, schoolCity, schoolState, degree, major, gradMonth, gradYear, isAnticipated);
 	}
