@@ -445,13 +445,39 @@ public class ResumeBuilderView implements ItemListener{
 	}
 
 	private void addSummaryPanel() {
-		summaryPanel = new JPanel();
+	summaryPanel = new JPanel();
+
+		// objective text
 		JLabel l1 = new JLabel("Summary: ");
 		l1.setPreferredSize(new Dimension(100,40));
 		summaryText = new JTextArea();
-		summaryText.setPreferredSize(new Dimension(300,200));
+		summaryText.setPreferredSize(new Dimension(200,100));
+
+		// message label
+		JLabel message = new JLabel();
+		message.setPreferredSize(new Dimension(100,40));
+
+		// Set button
+		JButton setSummary = new JButton();
+		setSummary.setText("Set Summary");
+		setSummary.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent evt) {	
+				if (summaryText.getText().isEmpty()) {
+					message.setText("Field is required");
+				}
+				else {
+					ResumeBuilderController.getInstance().setSummary(summaryText.getText());
+					summaryText.setText("");
+					message.setText("Added summary");
+				}
+			}
+		});
+
 		summaryPanel.add(l1);
 		summaryPanel.add(summaryText);
+		summaryPanel.add(message);
+		summaryPanel.add(setSummary);
 	}
 
 	//-----------------------------------------------
