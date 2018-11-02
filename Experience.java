@@ -1,5 +1,6 @@
 package edu.sollers.javaprog.resumerbuilder;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -50,7 +51,7 @@ public class Experience extends ResumeElement {
 	}
 
 	public static String getFieldOrder() {
-    	return "cmp_name, pos, cmp_loc, start_date, end_date, cmp_summ";
+    	return "id, cmp_name, pos, cmp_loc, start_date, end_date, cmp_summ";
     }
     
 	public static String getTableName() {
@@ -61,19 +62,45 @@ public class Experience extends ResumeElement {
     	return "select " + getFieldOrder() + " from " + getTableName();
     }
     
-    public String getInsertStatement() {
-    	return "insert into " + getTableName() + " (" + getFieldOrder() + ") values ('" + cmpName + "', '" + pos + "', '" + cmpLoc + "', '" + startDate + "', '" + endDate + "', '" + cmpSumm +"')";
-    }
-    
-    public String getUpdateStatement() {
-    	return "update " + getTableName() + "";
-    }
-    
+	public String getInsertStatement(int id) {
+		return "insert into " + getTableName() + " (" + getFieldOrder() + ") values (" 
+				+ id + ", '"
+				+ cmpName + "', '"
+				+ pos + "', '"
+				+ cmpLoc + "', '"
+				+ startDate + "', '"
+				+ endDate + "', '"
+				+ cmpSumm + "')";
+		}
+	
+	public String getUpdateStatement(int id) {
+		return "update " + getTableName() + " set "
+				+ "cmp_summ = '" + cmpSumm + "' "
+				+ "where id = " + id;
+	}
+
     public void save() {
 		try {
-			Statement stmt = ResumeBuilderController.getInstance().getConnection().createStatement();
-	    	stmt.executeQuery(getInsertStatement());
-	    	System.out.print("Experience Info inserted into database");
+			Statement stmt = getConnection().createStatement();
+	    	ResultSet rs = stmt.executeQuery(getSelectClause());
+			
+			boolean expExists = false;
+			while (rs.next()) {
+				if (cmpName.equals(rs.getString("cmp_name")) && pos.equals(rs.getString("pos")) &&
+					cmpLoc.equals(rs.getString("cmp_loc")) && startDate.equals(rs.getString("start_date")) &&
+					endDate.equals(rs.getString("end_date"))) {					
+					expExists = true;
+					stmt.executeUpdate(getUpdateStatement(rs.getInt("id")));
+					System.out.print("Experience Summary updated into database");
+				}
+			}
+			if (!expExists) {
+				rs = stmt.executeQuery("select max(id) FROM " + getTableName());
+				rs.next();
+				int id = (rs.getInt(1) == 0) ? 1 : rs.getInt(1) + 1;
+				stmt.executeUpdate(getInsertStatement(id));
+				System.out.print("Experience Info inserted into database");
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

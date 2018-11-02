@@ -1,5 +1,6 @@
 package edu.sollers.javaprog.resumerbuilder;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -38,7 +39,7 @@ public class Publication extends ResumeElement{
 	}
 
 	public static String getFieldOrder() {
-    	return "auth_name, title, year, summary";
+    	return "id, auth_name, title, year, summary";
     }
     
 	public static String getTableName() {
@@ -49,19 +50,41 @@ public class Publication extends ResumeElement{
     	return "select " + getFieldOrder() + " from " + getTableName();
     }
     
-    public String getInsertStatement() {
-    	return "insert into " + getTableName() + " (" + getFieldOrder() + ") values ('" + authName + "', '" + title + "', " + year + ", '" + summary + "')";
-    }
-    
-    public String getUpdateStatement() {
-    	return "update " + getTableName() + "";
-    }
-    
+    public String getInsertStatement(int id) {
+		return "insert into " + getTableName() + " (" + getFieldOrder() + ") values (" 
+				+ id + ", '"
+				+ authName + "', '"
+				+ title + "', "
+				+ year + ", '"
+				+ summary + "')";
+		}
+	
+	public String getUpdateStatement(int id) {
+		return "update " + getTableName() + " set "
+				+ "summary = '" + summary + "' "
+				+ "where id = " + id;
+	}
+
     public void save() {
     	try {
-			Statement stmt = ResumeBuilderController.getInstance().getConnection().createStatement();
-	    	stmt.executeQuery(getInsertStatement());
-	    	System.out.print("Publication Info inserted into database");
+    		Statement stmt = getConnection().createStatement();
+	    	ResultSet rs = stmt.executeQuery(getSelectClause());
+			
+			boolean pubExists = false;
+			while (rs.next()) {
+				if (authName.equals(rs.getString("auth_name")) && title.equals(rs.getString("title")) && year == rs.getInt("year")) {					
+					pubExists = true;
+					stmt.executeUpdate(getUpdateStatement(rs.getInt("id")));
+					System.out.print("Publication Summary updated into database");
+				}
+			}
+			if (!pubExists) {
+				rs = stmt.executeQuery("select max(id) FROM " + getTableName());
+				rs.next();
+				int id = (rs.getInt(1) == 0) ? 1 : rs.getInt(1) + 1;
+				stmt.executeUpdate(getInsertStatement(id));
+				System.out.print("Publication Info inserted into database");
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
