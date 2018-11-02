@@ -1,15 +1,15 @@
 package edu.sollers.javaprog.resumerbuilder;
 
-/**
- * @author rutpatel
- */
-
 import java.awt.Color;  
 import java.awt.Font;  
 import java.awt.event.FocusAdapter;  
 import java.awt.event.FocusEvent;  
 import javax.swing.JTextField;  
    
+/**
+ * @author rutpatel
+ */
+
 public class HiddenTextField extends JTextField {  
 	private static final long serialVersionUID = 1;
 	Font gainFont = new Font("Tahoma", Font.PLAIN, 11);  
