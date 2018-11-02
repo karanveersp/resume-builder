@@ -71,21 +71,44 @@ public class Education extends ResumeElement {
 				+ ")";
 	}
 
-	public String getUpdateStatement() {
+	/**
+	 * Updates education row with given id
+	 * @param id
+	 * @return update query statement
+	 */
+	public String getUpdateStatement(int id) {
 		return "update " + getTableName() + " set "
-				+ "school_name = '" + schoolName  + "', ";
+				+ "school_name = '" + schoolName + "', "
+				+ "school_city = '" + schoolCity + "', "
+				+ "school_state = '" + schoolState + "', "
+				+ "degree = '" + degree + "', "
+				+ "major = '" + major + "', "
+				+ "grad_month = '" + gradMonth + "', "
+				+ "grad_year = " + gradYear + ", "
+				+ "is_anticipated = " + isAnticipated
+				+ " WHERE id = " + id;
 	}
 
 	public void save() {
 		try {
 			Statement stmt = getConnection().createStatement();
 			ResultSet rs = stmt.executeQuery(getSelectClause());
+			
+			boolean schoolExists = false;
 			while (rs.next()) {
-				if (schoolName.equals(rs.getString(2)) && schoolCity.equals(rs.getString(3))) {
+				if (schoolName.equals(rs.getString("school_name")) && schoolCity.equals(rs.getString("school_city"))) {
 					
-					// school exists in table so perform an update
-					
+					schoolExists = true;
+					// school exists in table so perform an UPDATE
+					stmt.executeUpdate(getUpdateStatement(rs.getInt("id")));
 				}
+			}
+			if (!schoolExists) {
+				// if no matching school found in table, insert new school
+				rs = stmt.executeQuery("SELECT max(id) FROM " + getTableName());
+				rs.next();
+				int id = (rs.getInt(1) == 0) ? 1 : rs.getInt(1) + 1;
+				stmt.executeUpdate(getInsertStatement(id));
 			}
 				System.out.println("Inserted Education object into table");
 		} catch (SQLException e) {
@@ -220,11 +243,4 @@ public class Education extends ResumeElement {
 				+ "Grad Year: " + gradYear + "\n"
 				+ "IsAnticipated: " + isAnticipated + "\n";
 	}
-
-	
-	
-	
-	
-	
-	
 }
