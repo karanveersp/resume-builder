@@ -72,14 +72,6 @@ public class Summary extends ResumeElement {
 		return summary;
 	}
 
-	/**
-	 * @param objective the objective to set
-	 */
-	public void setSummary(String summary) {
-		this.summary = summary;
-	}
-	
-
     /**
      * Return string representation of object
      */
