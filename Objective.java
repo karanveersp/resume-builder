@@ -77,15 +77,7 @@ public class Objective extends ResumeElement {
 	public String getObjective() {
 		return objective;
 	}
-
-	/**
-	 * @param objective the objective to set
-	 */
-	public void setObjective(String objective) {
-		this.objective = objective;
-	}
 	
-
 	@Override
 	public String toString() {
 		return "Objective: " + objective + "\n";
