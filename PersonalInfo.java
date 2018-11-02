@@ -49,24 +49,10 @@ public class PersonalInfo extends ResumeElement {
 	}
 
 	/**
-	 * @param firstName the firstName to set
-	 */
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	/**
 	 * @return the lastName
 	 */
 	public String getLastName() {
 		return lastName;
-	}
-
-	/**
-	 * @param lastName the lastName to set
-	 */
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
 	}
 
 	/**
@@ -77,24 +63,10 @@ public class PersonalInfo extends ResumeElement {
 	}
 
 	/**
-	 * @param email the email to set
-	 */
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	/**
 	 * @return the street1
 	 */
 	public String getStreet1() {
 		return street1;
-	}
-
-	/**
-	 * @param street the street1 to set
-	 */
-	public void setStreet1(String street1) {
-		this.street1 = street1;
 	}
 
 	/**
@@ -103,26 +75,12 @@ public class PersonalInfo extends ResumeElement {
 	public String getStreet2() {
 		return street2;
 	}
-
-	/**
-	 * @param street2 the street2 to set
-	 */
-	public void setStreet2(String street2) {
-		this.street2 = street2;
-	}
-
+	
 	/**
 	 * @return the zip
 	 */
 	public int getZip() {
 		return zip;
-	}
-
-	/**
-	 * @param zip the zip to set
-	 */
-	public void setZip(int zip) {
-		this.zip = zip;
 	}
 
 	/**
@@ -133,24 +91,10 @@ public class PersonalInfo extends ResumeElement {
 	}
 
 	/**
-	 * @param city the city to set
-	 */
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-	/**
 	 * @return the state
 	 */
 	public String getState() {
 		return state;
-	}
-
-	/**
-	 * @param state the state to set
-	 */
-	public void setState(String state) {
-		this.state = state;
 	}
 	
     public static String getFieldOrder() {
