@@ -431,6 +431,14 @@ public class ResumeBuilderView implements ItemListener{
 		// message label
 		JLabel message = new JLabel();
 		message.setPreferredSize(new Dimension(100,40));
+		
+		// Scroll pane with text area that displays 
+		// memberships that get added
+		JTextArea addedMemberships = new JTextArea(10,20);
+		addedMemberships.setEditable(false);
+		JScrollPane sp = new JScrollPane(addedMemberships, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		sp.setPreferredSize(new Dimension(300,50));
+		ArrayList<String> memberships = new ArrayList<>();
 
 		// Set button
 		JButton setMembership = new JButton();
@@ -443,8 +451,10 @@ public class ResumeBuilderView implements ItemListener{
 				}
 				else {
 					ResumeBuilderController.getInstance().setMembership(membershipText.getText());
+					memberships.add(membershipText.getText());
+					addedMemberships.setText(memberships.toString());
 					membershipText.setText("");
-					message.setText("Added membership");
+					message.setText("Added");
 				}
 			}
 		});
@@ -453,6 +463,7 @@ public class ResumeBuilderView implements ItemListener{
 		membershipsPanel.add(membershipText);
 		membershipsPanel.add(message);
 		membershipsPanel.add(setMembership);
+		membershipsPanel.add(sp);
 	}
 
 	private void addExtraCurrPanel() {
