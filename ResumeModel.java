@@ -177,7 +177,7 @@ public class ResumeModel {
 	public void pack() throws Exception {
 		elements = new ArrayList<ResumeElement>();
 		
-		if (personalInfo == null | summary == null | objective == null | education == null | experience == null | publication == null) {
+		if (personalInfo == null | summary == null | objective == null | education == null | experience == null) {
 			throw new MissingRequiredFieldsException("Missing Required Fields");
 		}
 		else {
@@ -190,10 +190,13 @@ public class ResumeModel {
 			for (Experience e: experience) {
 				elements.add(e);
 			}
-			for (Publication p: publication) {
-				elements.add(p);
-			}
+			
 			// Optional elements
+			if (publication != null) {
+				for (Publication p: publication) {
+					elements.add(p);
+				}
+			}
 			if (membership != null) {
 				for (Membership m: membership) {
 					elements.add(m);
