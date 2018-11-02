@@ -102,7 +102,33 @@ public class ResumeBuilderController {
 	public void setEducation(String schoolName, String schoolCity, String schoolState, String degree, String major, String gradMonth, String gradYear, boolean isAnticipated) {
 		getModel().setEducation(schoolName, schoolCity, schoolState, degree, major, gradMonth, gradYear, isAnticipated);
 	}
-
+	
+	/**
+	 * Pass values to the controller which then passes
+	 * to the model.
+	 * @param cmpName
+	 * @param pos
+	 * @param cmpLoc
+	 * @param startDate
+	 * @param endDate
+	 * @param cmpSumm
+	 */
+	public void setExperience(String cmpName, String pos, String cmpLoc, String startDate, String endDate, String cmpSumm) {
+		getModel().setExperience(cmpName, pos, cmpLoc, startDate, endDate, cmpSumm);
+	}
+	
+	/**
+	 * Pass values to the controller which then passes
+	 * to the model.
+	 * @param authName
+	 * @param title
+	 * @param year
+	 * @param summary
+	 */
+	public void setPublication(String authName, String title, int year, String summary) {
+		getModel().setPublication(authName, title, year, summary);
+	}
+	
 	public ResumeModel getModel() {
 		return resume;
 	}
