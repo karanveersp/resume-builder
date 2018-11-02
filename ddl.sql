@@ -41,8 +41,10 @@ CREATE TABLE publication (
  year SMALLINT NOT NULL,
  summary VARCHAR(100) NOT NULL); 
  
- CREATE TABLE activity (
+CREATE TABLE activity (
+ id INTEGER NOT NULL PRIMARY KEY
  activity TINYTEXT NOT NULL);
  
- CREATE TABLE membership (
-  membership TINYTEXT NOT NULL);
+CREATE TABLE membership (
+ id INTEGER NOT NULL PRIMARY KEY
+ membership TINYTEXT NOT NULL);
