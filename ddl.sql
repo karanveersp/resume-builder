@@ -1,3 +1,16 @@
+CREATE TABLE personal_info (
+first_name TINYTEXT NOT NULL,
+last_name TINYTEXT NOT NULL,
+email TINYTEXT NOT NULL,
+street1 TINYTEXT NOT NULL,
+street2 TINYTEXT,
+city TINYTEXT NOT NULL,
+state TINYTEXT NOT NULL,
+zip TINYTEXT NOT NULL);
+
+CREATE TABLE summary (
+summary TINYTEXT NOT NULL);
+
 CREATE TABLE objective (
 objective TINYTEXT NOT NULL);
 
@@ -30,4 +43,4 @@ CREATE TABLE `publication` (
  `year` smallint NOT NULL,
  `summary` varchar(100) NOT NULL,
  PRIMARY KEY (`id`)
-) ENGINE=InnoDB;
+) ENGINE=InnoDB; 
