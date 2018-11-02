@@ -25,22 +25,18 @@ grad_month VARCHAR(15) NOT NULL,
 grad_year INTEGER NOT NULL,
 is_anticipated boolean);
 
-CREATE TABLE `experience` (
- `id` integer NOT NULL AUTO_INCREMENT,
- `cmp_name` tinytext NOT NULL,
- `pos` tinytext NOT NULL,
- `cmp_loc` tinytext NOT NULL,
- `start_date` tinytext NOT NULL,
- `end_date` tinytext NOT NULL,
- `cmp_summ` varchar(100) NOT NULL,
- PRIMARY KEY (`id`)
-) ENGINE=InnoDB;
+CREATE TABLE experience (
+ id INTEGER NOT NULL PRIMARY KEY,
+ cmp_name TINYTEXT NOT NULL,
+ pos TINYTEXT NOT NULL,
+ cmp_loc TINYTEXT NOT NULL,
+ start_date TINYTEXT NOT NULL,
+ end_date TINYTEXT NOT NULL,
+ cmp_summ VARCHAR(100) NOT NULL);
 
-CREATE TABLE `publication` (
- `id` integer NOT NULL AUTO_INCREMENT,
- `auth_name` tinytext NOT NULL,
- `title` tinytext NOT NULL,
- `year` smallint NOT NULL,
- `summary` varchar(100) NOT NULL,
- PRIMARY KEY (`id`)
-) ENGINE=InnoDB; 
+CREATE TABLE publication (
+ id INTEGER NOT NULL PRIMARY KEY,
+ auth_name TINYTEXT NOT NULL,
+ title TINYTEXT NOT NULL,
+ year SMALLINT NOT NULL,
+ summary VARCHAR(100) NOT NULL); 
