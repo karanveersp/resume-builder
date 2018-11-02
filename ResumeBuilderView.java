@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -19,8 +20,10 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 public class ResumeBuilderView implements ItemListener{
 
@@ -393,9 +396,6 @@ public class ResumeBuilderView implements ItemListener{
 					JOptionPane.showMessageDialog(null, "All fields are required...", "alert", JOptionPane.ERROR_MESSAGE);
 				}
 				else if(pYear.getText().length() != 4) {
-					JOptionPane.showMessageDialog(null, "Publication Year should be in 'yyyy' format...", "alert", JOptionPane.ERROR_MESSAGE);
-				}
-				else if(!isInt(pYear.getText())) {
 					JOptionPane.showMessageDialog(null, "Publication Year should be in 'yyyy' format...", "alert", JOptionPane.ERROR_MESSAGE);
 				}
 				else {
