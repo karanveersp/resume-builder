@@ -55,6 +55,12 @@ public class ResumeBuilderView implements ItemListener{
 	// personalInfoPanel
 	JTextField fName;
 	JTextField lName;
+	JTextField email;
+	JTextField street1;
+	JTextField street2;
+	JTextField city;
+	JTextField state;
+	JTextField zip;
 
 	// summaryPanel
 	JTextArea summaryText;
@@ -316,18 +322,126 @@ public class ResumeBuilderView implements ItemListener{
 	private void addPersonalInfoPanel() {
 		personalInfoPanel = new JPanel();
 		personalInfoPanel.setPreferredSize(new Dimension(200,400));
-		JLabel l1 = new JLabel("First Name: ");
+		personalInfoPanel.setLayout(new GridLayout(9,2));
+
+		// first name
+		JLabel l1 = new JLabel("  First Name: ");
 		l1.setPreferredSize(new Dimension(100,40));
+		l1.setHorizontalAlignment(SwingConstants.CENTER);
 		fName = new JTextField();
 		fName.setPreferredSize(new Dimension(100,40));
-		JLabel l2 = new JLabel("Last Name: ");
+
+		// last name
+		JLabel l2 = new JLabel("  Last Name: ");
 		l2.setPreferredSize(new Dimension(100,40));
+		l2.setHorizontalAlignment(SwingConstants.CENTER);
 		lName = new JTextField();
 		lName.setPreferredSize(new Dimension(100,40));
+
+		// email
+		JLabel l3 = new JLabel("Email: ");
+		l3.setPreferredSize(new Dimension(100,40));
+		l3.setHorizontalAlignment(SwingConstants.CENTER);
+		email = new JTextField();
+		email.setPreferredSize(new Dimension(100,40));
+
+		// street1
+		JLabel l4 = new JLabel("Street 1: ");
+		l4.setPreferredSize(new Dimension(100,40));
+		l4.setHorizontalAlignment(SwingConstants.CENTER);
+		street1 = new JTextField();
+		street1.setPreferredSize(new Dimension(100,40));
+
+		// street2
+		JLabel l5 = new JLabel("Street 2: ");
+		l5.setPreferredSize(new Dimension(100,40));
+		l5.setHorizontalAlignment(SwingConstants.CENTER);
+		street2 = new JTextField();
+		street2.setPreferredSize(new Dimension(100,40));
+
+		// city
+		JLabel l6 = new JLabel("City: ");
+		l6.setPreferredSize(new Dimension(100,40));
+		l6.setHorizontalAlignment(SwingConstants.CENTER);
+		city = new JTextField();
+		city.setPreferredSize(new Dimension(100,40));
+
+		// state
+		JLabel l7 = new JLabel("State: ");
+		l7.setPreferredSize(new Dimension(100,40));
+		l7.setHorizontalAlignment(SwingConstants.CENTER);
+		state = new JTextField();
+		state.setPreferredSize(new Dimension(100,40));
+
+		// zip
+		JLabel l8 = new JLabel("Zip: ");
+		l8.setPreferredSize(new Dimension(100,40));
+		l8.setHorizontalAlignment(SwingConstants.CENTER);
+		zip = new JTextField();
+		zip.setPreferredSize(new Dimension(100,40));
+
+		// Message label to let user know which fields are required
+		JLabel message = new JLabel();
+		message.setPreferredSize(new Dimension(100,40));
+		message.setHorizontalAlignment(SwingConstants.CENTER);
+
+		// add button
+		JButton addInfo = new JButton();
+		addInfo.setText("Set Information");
+		addInfo.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent evt) {	
+				if (fName.getText().isEmpty() 		| 
+						lName.getText().isEmpty() 	|
+						email.getText().isEmpty()	|
+						street1.getText().isEmpty()		|
+						city.getText().isEmpty()	|
+						state.getText().isEmpty()   |
+						zip.getText().isEmpty()) {
+					message.setText("All fields except street 2 are required");
+				}
+				else {
+					ResumeBuilderController.getInstance().setPersonalInfo(
+							fName.getText(), 
+							lName.getText(), 
+							email.getText(), 
+							street1.getText(), 
+							street2.getText(), 
+							city.getText(), 
+							state.getText(), 
+							zip.getText());
+					// Clear fields
+					fName.setText("");
+					lName.setText("");
+					email.setText("");
+					street1.setText("");
+					street2.setText("");
+					city.setText("");
+					state.setText("");
+					zip.setText("");
+					message.setText("Added Personal Info");
+				}
+			}
+		});
+
 		personalInfoPanel.add(l1);
 		personalInfoPanel.add(fName);
 		personalInfoPanel.add(l2);
 		personalInfoPanel.add(lName);
+		personalInfoPanel.add(l3);
+		personalInfoPanel.add(email);
+		personalInfoPanel.add(l4);
+		personalInfoPanel.add(street1);
+		personalInfoPanel.add(l5);
+		personalInfoPanel.add(street2);
+		personalInfoPanel.add(l6);
+		personalInfoPanel.add(city);
+		personalInfoPanel.add(l7);
+		personalInfoPanel.add(state);
+		personalInfoPanel.add(l8);
+		personalInfoPanel.add(zip);
+		personalInfoPanel.add(addInfo);
+		personalInfoPanel.add(message);
 	}
 
 	private void addSummaryPanel() {
