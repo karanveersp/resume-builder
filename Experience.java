@@ -17,6 +17,14 @@ public class Experience extends ResumeElement {
 	private String endDate;
 	private String cmpSumm;
 	
+	/**
+	 * @param cmpName
+	 * @param pos
+	 * @param cmpLoc
+	 * @param startDate
+	 * @param endDate
+	 * @param cmpSumm
+	 */
 	public Experience(String cmpName, String pos, String cmpLoc, String startDate, String endDate, String cmpSumm) {
 		this.cmpName = cmpName;
 		this.pos = pos;
@@ -25,42 +33,60 @@ public class Experience extends ResumeElement {
 		this.endDate = endDate;
 		this.cmpSumm = cmpSumm;
 	}
-	
+
+	/**
+	 * @return the cmpName
+	 */
 	public String getCmpName() {
 		return cmpName;
 	}
 
+	/**
+	 * @return the pos
+	 */
 	public String getPos() {
 		return pos;
 	}
 
+	/**
+	 * @return the cmpLoc
+	 */
 	public String getCmpLoc() {
 		return cmpLoc;
 	}
 
+	/**
+	 * @return the startDate
+	 */
 	public String getStartDate() {
 		return startDate;
 	}
 
+	/**
+	 * @return the endDate
+	 */
 	public String getEndDate() {
 		return endDate;
 	}
 
+	/**
+	 * @return the cmpSumm
+	 */
 	public String getCmpSumm() {
 		return cmpSumm;
 	}
 
 	public static String getFieldOrder() {
-    	return "id, cmp_name, pos, cmp_loc, start_date, end_date, cmp_summ";
-    }
+    		return "id, cmp_name, pos, cmp_loc, start_date, end_date, cmp_summ";
+    	}
     
 	public static String getTableName() {
-    	return "experience";
-    }
+    		return "experience";
+    	}
     
-    public static String getSelectClause() {
-    	return "select " + getFieldOrder() + " from " + getTableName();
-    }
+    	public static String getSelectClause() {
+    		return "select " + getFieldOrder() + " from " + getTableName();
+    	}
     
 	public String getInsertStatement(int id) {
 		return "insert into " + getTableName() + " (" + getFieldOrder() + ") values (" 
@@ -71,7 +97,7 @@ public class Experience extends ResumeElement {
 				+ startDate + "', '"
 				+ endDate + "', '"
 				+ cmpSumm + "')";
-		}
+	}
 	
 	public String getUpdateStatement(int id) {
 		return "update " + getTableName() + " set "
@@ -79,7 +105,7 @@ public class Experience extends ResumeElement {
 				+ "where id = " + id;
 	}
 
-    public void save() {
+    	public void save() {
 		try {
 			Statement stmt = getConnection().createStatement();
 	    	ResultSet rs = stmt.executeQuery(getSelectClause());
@@ -104,5 +130,5 @@ public class Experience extends ResumeElement {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-    }
+   	}
 }
