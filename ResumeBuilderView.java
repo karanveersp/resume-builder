@@ -308,7 +308,7 @@ public class ResumeBuilderView implements ItemListener{
 				else {
 					ResumeBuilderController.getInstance().setObjective(objectiveText.getText());
 					objectiveText.setText("");
-					message.setText("Added sbjective");
+					message.setText("Added objective");
 				}
 			}
 		});
