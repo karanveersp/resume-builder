@@ -23,7 +23,48 @@ public class ResumeModel {
 	private ArrayList<Publication> publication;
 //	private ArrayList<membership> membership;
 	
-	
+	/**
+	 * Gets personal info object
+	 * @return personalInfo or null
+	 */
+	public PersonalInfo getPersonalInfo() {
+		return personalInfo;
+	}
+
+	/**
+	 * Sets/updates personal info field
+	 * @param firstName
+	 * @param lastName
+	 * @param email
+	 * @param street1
+	 * @param street2
+	 * @param city
+	 * @param state
+	 * @param zip
+	 */
+	public void setPersonalInfo(String firstName, String lastName, String email, String street1, String street2,
+			String city, String state, String zip) {
+		this.personalInfo = new PersonalInfo(firstName, lastName, email, street1, (street2.isEmpty()) ? null : street2, city, state, zip);
+		System.out.println(personalInfo);
+	}
+
+	/**
+	 * Get summary object
+	 * @return Summary or null
+	 */
+	public Summary getSummary() {
+		return summary;
+	}
+
+	/**
+	 * Set summary object
+	 * @param summary String
+	 */
+	public void setSummary(String summary) {
+		this.summary = new Summary(summary);
+		System.out.println(this.summary);
+	}
+
 	/**
 	 * Getter for education
 	 * @return ArrayList of Education object(s) or null
