@@ -22,6 +22,8 @@ public class ResumeModel {
 	private ArrayList<Experience> experience;
 	private ArrayList<Publication> publication;
 	private ArrayList<Membership> membership;
+	private ArrayList<Activity> activity;
+
 	
 	/**
 	 * Gets personal info object
@@ -162,6 +164,14 @@ public class ResumeModel {
 	}
 	
 	/**
+	 * Get membership
+	 * @return membership arraylist or null
+	 */
+	public ArrayList<Membership> getMemberships() {
+		return membership;
+	}
+	
+	/**
 	 * Set/add membership. Adds to membership arraylist
 	 * @param membership
 	 */
@@ -172,6 +182,27 @@ public class ResumeModel {
 		Membership memb = new Membership(membership);
 		this.membership.add(memb);
 		System.out.println(memb);
+	}
+	
+	/**
+	 * Get activity arraylist
+	 * @return array list or null
+	 */
+	public ArrayList<Activity> getActivities() {
+		return activity;
+	}
+
+	/**
+	 * Set/add activity
+	 * @param activity
+	 */
+	public void setActivity(String activity) {
+		if (this.activity == null) {
+			this.activity = new ArrayList<>();
+		}
+		Activity act = new Activity(activity);
+		this.activity.add(act);
+		System.out.println(act);
 	}
 
 	public void pack() throws Exception {
@@ -202,13 +233,11 @@ public class ResumeModel {
 					elements.add(m);
 				}
 			}
-//			if (extraCurrActs != null) {
-//				for (ExtraCurr e: extraCurrActs) {
-//					elements.add(e);
-//				}
-//			}
-
-
+			if (activity != null) {
+				for (Activity a: activity) {
+					elements.add(a);
+				}
+			}
 		}
 	}
 	
