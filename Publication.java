@@ -15,49 +15,67 @@ public class Publication extends ResumeElement{
 	private int year;
 	private String summary;
 	
+	/**
+	 * @param authName
+	 * @param title
+	 * @param year
+	 * @param summary
+	 */
 	public Publication(String authName, String title, int year, String summary) {
 		this.authName = authName;
 		this.title = title;
 		this.year = year;
 		this.summary = summary;
 	}
-	
+
+	/**
+	 * @return the authName
+	 */
 	public String getAuthName() {
 		return authName;
 	}
 
+	/**
+	 * @return the title
+	 */
 	public String getTitle() {
 		return title;
 	}
 
+	/**
+	 * @return the year
+	 */
 	public int getYear() {
 		return year;
 	}
 
+	/**
+	 * @return the summary
+	 */
 	public String getSummary() {
 		return summary;
 	}
 
 	public static String getFieldOrder() {
-    	return "id, auth_name, title, year, summary";
-    }
+    		return "id, auth_name, title, year, summary";
+    	}
     
 	public static String getTableName() {
-    	return "publication";
-    }
+    		return "publication";
+    	}
     
-    public static String getSelectClause() {
-    	return "select " + getFieldOrder() + " from " + getTableName();
-    }
+    	public static String getSelectClause() {
+    		return "select " + getFieldOrder() + " from " + getTableName();
+    	}
     
-    public String getInsertStatement(int id) {
+    	public String getInsertStatement(int id) {
 		return "insert into " + getTableName() + " (" + getFieldOrder() + ") values (" 
 				+ id + ", '"
 				+ authName + "', '"
 				+ title + "', "
 				+ year + ", '"
 				+ summary + "')";
-		}
+	}
 	
 	public String getUpdateStatement(int id) {
 		return "update " + getTableName() + " set "
@@ -65,10 +83,10 @@ public class Publication extends ResumeElement{
 				+ "where id = " + id;
 	}
 
-    public void save() {
-    	try {
-    		Statement stmt = getConnection().createStatement();
-	    	ResultSet rs = stmt.executeQuery(getSelectClause());
+    	public void save() {
+    		try {
+    			Statement stmt = getConnection().createStatement();
+	    		ResultSet rs = stmt.executeQuery(getSelectClause());
 			
 			boolean pubExists = false;
 			while (rs.next()) {
@@ -88,5 +106,5 @@ public class Publication extends ResumeElement{
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-    }
+    	}
 }
