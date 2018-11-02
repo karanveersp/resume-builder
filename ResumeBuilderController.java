@@ -138,6 +138,15 @@ public class ResumeBuilderController {
 		getModel().setMembership(membership);
 	}
 	
+	/**
+	 * Pass values to the controller which then passes
+	 * to the model.
+	 * @param act String
+	 */
+	public void setActivity(String act) {
+		getModel().setActivity(act);
+	}
+	
 	public ResumeModel getModel() {
 		return resume;
 	}
