@@ -40,3 +40,9 @@ CREATE TABLE publication (
  title TINYTEXT NOT NULL,
  year SMALLINT NOT NULL,
  summary VARCHAR(100) NOT NULL); 
+ 
+ CREATE TABLE activity (
+ activity TINYTEXT NOT NULL);
+ 
+ CREATE TABLE membership (
+  membership TINYTEXT NOT NULL);
