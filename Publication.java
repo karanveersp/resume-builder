@@ -9,20 +9,20 @@ import java.sql.Statement;
 
 public class Publication extends ResumeElement{
 
-	private String auth_name;
+	private String authName;
 	private String title;
 	private int year;
 	private String summary;
 	
-	public Publication(String auth_name, String title, int year, String summary) {
-		this.auth_name = auth_name;
+	public Publication(String authName, String title, int year, String summary) {
+		this.authName = authName;
 		this.title = title;
 		this.year = year;
 		this.summary = summary;
 	}
 	
-	public String getAuth_name() {
-		return auth_name;
+	public String getAuthName() {
+		return authName;
 	}
 
 	public String getTitle() {
@@ -42,7 +42,7 @@ public class Publication extends ResumeElement{
     }
     
 	public static String getTableName() {
-    	return "pub_info";
+    	return "publication";
     }
     
     public static String getSelectClause() {
@@ -50,7 +50,7 @@ public class Publication extends ResumeElement{
     }
     
     public String getInsertStatement() {
-    	return "insert into " + getTableName() + " (" + getFieldOrder() + ") values ('" + auth_name + "', '" + title + "', " + year + ", '" + summary + "')";
+    	return "insert into " + getTableName() + " (" + getFieldOrder() + ") values ('" + authName + "', '" + title + "', " + year + ", '" + summary + "')";
     }
     
     public String getUpdateStatement() {
@@ -59,12 +59,11 @@ public class Publication extends ResumeElement{
     
     public void save() {
     	try {
-			Statement stmt = getConnection().createStatement();
-			stmt.executeQuery(getInsertStatement());
+			Statement stmt = ResumeBuilderController.getInstance().getConnection().createStatement();
+	    	stmt.executeQuery(getInsertStatement());
+	    	System.out.print("Publication Info inserted into database");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-    	
-    	System.out.print("Publication Info inserted into database");
     }
 }

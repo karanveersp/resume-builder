@@ -9,44 +9,44 @@ import java.sql.Statement;
 
 public class Experience extends ResumeElement {
 	
-	private String cmp_name;
+	private String cmpName;
 	private String pos;
-	private String cmp_loc;
-	private String start_date;
-	private String end_date;
-	private String cmp_summ;
+	private String cmpLoc;
+	private String startDate;
+	private String endDate;
+	private String cmpSumm;
 	
-	public Experience(String cmp_name, String pos, String cmp_loc, String start_date, String end_date, String cmp_summ) {
-		this.cmp_name = cmp_name;
+	public Experience(String cmpName, String pos, String cmpLoc, String startDate, String endDate, String cmpSumm) {
+		this.cmpName = cmpName;
 		this.pos = pos;
-		this.cmp_loc = cmp_loc;
-		this.start_date = start_date;
-		this.end_date = end_date;
-		this.cmp_summ = cmp_summ;
+		this.cmpLoc = cmpLoc;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.cmpSumm = cmpSumm;
 	}
 	
-	public String getCmp_name() {
-		return cmp_name;
+	public String getCmpName() {
+		return cmpName;
 	}
 
 	public String getPos() {
 		return pos;
 	}
 
-	public String getCmp_loc() {
-		return cmp_loc;
+	public String getCmpLoc() {
+		return cmpLoc;
 	}
 
-	public String getStart_date() {
-		return start_date;
+	public String getStartDate() {
+		return startDate;
 	}
 
-	public String getEnd_date() {
-		return end_date;
+	public String getEndDate() {
+		return endDate;
 	}
 
-	public String getCmp_summ() {
-		return cmp_summ;
+	public String getCmpSumm() {
+		return cmpSumm;
 	}
 
 	public static String getFieldOrder() {
@@ -54,7 +54,7 @@ public class Experience extends ResumeElement {
     }
     
 	public static String getTableName() {
-    	return "exp_info";
+    	return "experience";
     }
     
     public static String getSelectClause() {
@@ -62,7 +62,7 @@ public class Experience extends ResumeElement {
     }
     
     public String getInsertStatement() {
-    	return "insert into " + getTableName() + " (" + getFieldOrder() + ") values ('" + cmp_name + "', '" + pos + "', '" + cmp_loc + "', '" + start_date + "', '" + end_date + "', '" + cmp_summ +"')";
+    	return "insert into " + getTableName() + " (" + getFieldOrder() + ") values ('" + cmpName + "', '" + pos + "', '" + cmpLoc + "', '" + startDate + "', '" + endDate + "', '" + cmpSumm +"')";
     }
     
     public String getUpdateStatement() {
@@ -70,14 +70,12 @@ public class Experience extends ResumeElement {
     }
     
     public void save() {
-    	try {
-			Statement stmt = getConnection().createStatement();
-			stmt.executeQuery(getInsertStatement());
+		try {
+			Statement stmt = ResumeBuilderController.getInstance().getConnection().createStatement();
+	    	stmt.executeQuery(getInsertStatement());
+	    	System.out.print("Experience Info inserted into database");
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-    	
-    	System.out.print("Experience Info inserted into database");
     }
 }
