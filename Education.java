@@ -117,7 +117,7 @@ public class Education extends ResumeElement {
 	}
 
 	//----------------------------
-	// Getters/Setters
+	// Getters
 	//----------------------------
 
 	/**
@@ -128,24 +128,10 @@ public class Education extends ResumeElement {
 	}
 
 	/**
-	 * @param schoolName the schoolName to set
-	 */
-	public void setSchoolName(String schoolName) {
-		this.schoolName = schoolName;
-	}
-
-	/**
 	 * @return the schoolCity
 	 */
 	public String getSchoolCity() {
 		return schoolCity;
-	}
-
-	/**
-	 * @param schoolCity the schoolCity to set
-	 */
-	public void setSchoolCity(String schoolCity) {
-		this.schoolCity = schoolCity;
 	}
 
 	/**
@@ -156,24 +142,10 @@ public class Education extends ResumeElement {
 	}
 
 	/**
-	 * @param schoolState the schoolState to set
-	 */
-	public void setSchoolState(String schoolState) {
-		this.schoolState = schoolState;
-	}
-
-	/**
 	 * @return the degree
 	 */
 	public String getDegree() {
 		return degree;
-	}
-
-	/**
-	 * @param degree the degree to set
-	 */
-	public void setDegree(String degree) {
-		this.degree = degree;
 	}
 
 	/**
@@ -184,24 +156,10 @@ public class Education extends ResumeElement {
 	}
 
 	/**
-	 * @param major the major to set
-	 */
-	public void setMajor(String major) {
-		this.major = major;
-	}
-
-	/**
 	 * @return the gradMonth
 	 */
 	public String getGradMonth() {
 		return gradMonth;
-	}
-
-	/**
-	 * @param gradMonth the gradMonth to set
-	 */
-	public void setGradMonth(String gradMonth) {
-		this.gradMonth = gradMonth;
 	}
 
 	/**
@@ -212,26 +170,12 @@ public class Education extends ResumeElement {
 	}
 
 	/**
-	 * @param gradYear the gradYear to set
-	 */
-	public void setGradYear(int gradYear) {
-		this.gradYear = gradYear;
-	}
-
-	/**
 	 * @return the isAnticipated
 	 */
 	public boolean isAnticipated() {
 		return isAnticipated;
 	}
 
-	/**
-	 * @param isAnticipated the isAnticipated to set
-	 */
-	public void setAnticipated(boolean isAnticipated) {
-		this.isAnticipated = isAnticipated;
-	}
-	
 	@Override
 	public String toString() {
 		return "School Name: " + schoolName + "\n"
