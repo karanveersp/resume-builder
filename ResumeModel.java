@@ -21,7 +21,7 @@ public class ResumeModel {
 	private ArrayList<Education> education;
 	private ArrayList<Experience> experience;
 	private ArrayList<Publication> publication;
-//	private ArrayList<membership> membership;
+	private ArrayList<Membership> membership;
 	
 	/**
 	 * Gets personal info object
@@ -160,6 +160,19 @@ public class ResumeModel {
 		}
 		publication.add(pub);
 	}
+	
+	/**
+	 * Set/add membership. Adds to membership arraylist
+	 * @param membership
+	 */
+	public void setMembership(String membership) {
+		if (this.membership == null) {
+			this.membership = new ArrayList<>();
+		}
+		Membership memb = new Membership(membership);
+		this.membership.add(memb);
+		System.out.println(memb);
+	}
 
 	public void pack() throws Exception {
 		elements = new ArrayList<ResumeElement>();
@@ -180,11 +193,12 @@ public class ResumeModel {
 			for (Publication p: publication) {
 				elements.add(p);
 			}
-//			if (memberships != null) {
-//				for (Membership m: memberships) {
-//					elements.add(m);
-//				}
-//			}
+			// Optional elements
+			if (membership != null) {
+				for (Membership m: membership) {
+					elements.add(m);
+				}
+			}
 //			if (extraCurrActs != null) {
 //				for (ExtraCurr e: extraCurrActs) {
 //					elements.add(e);
