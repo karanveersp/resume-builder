@@ -129,6 +129,15 @@ public class ResumeBuilderController {
 		getModel().setPublication(authName, title, year, summary);
 	}
 	
+	/**
+	 * Pass values to the controller which then passes
+	 * to the model.
+	 * @param membership
+	 */
+	public void setMembership(String membership) {
+		getModel().setMembership(membership);
+	}
+	
 	public ResumeModel getModel() {
 		return resume;
 	}
