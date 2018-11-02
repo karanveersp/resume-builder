@@ -110,11 +110,61 @@ public class ResumeModel {
 		this.objective = new Objective(objective);
 		System.out.println(this.objective);
 	}
+	
+	/**
+	 * Getter for experience
+	 * @return ArrayList of Experience object(s) or null
+	 */
+	public ArrayList<Experience> getExperience() {
+		return experience;
+	}
+
+	/**
+	 * Set to experience field. Adds to Experience arraylist if arraylist is not null.
+	 * @param cmpName
+	 * @param pos
+	 * @param cmpLoc
+	 * @param startDate
+	 * @param endDate
+	 * @param cmpSumm
+	 */
+	public void setExperience(String cmpName, String pos, String cmpLoc, String startDate, String endDate, String cmpSumm) {
+		Experience exp = new Experience(cmpName, pos, cmpLoc, startDate, endDate, cmpSumm);
+
+		if (experience == null) {
+			experience = new ArrayList<>();
+		}
+		experience.add(exp);
+	}
+	
+	/**
+	 * Getter for publication
+	 * @return ArrayList of Publication object(s) or null
+	 */
+	public ArrayList<Publication> getPublication() {
+		return publication;
+	}
+	
+	/**
+	 * Set to publication field. Adds to Publication arraylist if arraylist is not null.
+	 * @param authName
+	 * @param title
+	 * @param year
+	 * @param summary
+	 */
+	public void setPublication(String authName, String title, int year, String summary) {
+		Publication pub = new Publication(authName, title, year, summary);
+
+		if (publication == null) {
+			publication = new ArrayList<>();
+		}
+		publication.add(pub);
+	}
 
 	public void pack() throws Exception {
 		elements = new ArrayList<ResumeElement>();
 		
-		if (personalInfo == null | summary == null | objective == null | education == null | experience == null) {
+		if (personalInfo == null | summary == null | objective == null | education == null | experience == null | publication == null) {
 			throw new MissingRequiredFieldsException("Missing Required Fields");
 		}
 		else {
@@ -127,10 +177,8 @@ public class ResumeModel {
 			for (Experience e: experience) {
 				elements.add(e);
 			}
-			if (publication != null) {
-				for (Publication p: publication) {
-					elements.add(p);
-				}
+			for (Publication p: publication) {
+				elements.add(p);
 			}
 //			if (memberships != null) {
 //				for (Membership m: memberships) {
