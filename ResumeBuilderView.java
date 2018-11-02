@@ -45,7 +45,7 @@ public class ResumeBuilderView implements ItemListener{
 	JPanel experiencePanel;
 	JPanel educationPanel;
 	JPanel pubsPanel;
-	JPanel profMemPanel;
+	JPanel membershipsPanel;
 	JPanel extraCurrPanel;
 
 	//=============
@@ -96,6 +96,9 @@ public class ResumeBuilderView implements ItemListener{
 	JTextArea pSumm;
 	JLabel pubCountL = new JLabel();
 	int pubCount = 1;
+	
+	// membershipsPanel
+	JTextField membershipText;
 
 	// Panel names that appear inside combo box
 	final static String PERSONALINFOPANEL = "Personal Info";
@@ -136,7 +139,7 @@ public class ResumeBuilderView implements ItemListener{
 		cards.add(experiencePanel, EXPERIENCEPANEL);
 		cards.add(educationPanel, EDUCATIONPANEL);
 		cards.add(pubsPanel, PUBLICATIONSPANEL);
-		cards.add(profMemPanel, MEMBERSHIPSPANEL);
+		cards.add(membershipsPanel, MEMBERSHIPSPANEL);
 		cards.add(extraCurrPanel, EXTRACURRPANEL);
 
 		mainFrame.add(comboBoxPane, BorderLayout.PAGE_START);
@@ -154,7 +157,7 @@ public class ResumeBuilderView implements ItemListener{
 		addExperiencePanel();
 		addEducationPanel();
 		addPublicationPanel();
-		addProfMemPanel();
+		addMembershipPanel();
 		addExtraCurrPanel();
 	}
 
@@ -416,9 +419,40 @@ public class ResumeBuilderView implements ItemListener{
 		pubsPanel.add(pubCountL);
 	}
 	
-	private void addProfMemPanel() {
-		profMemPanel = new JPanel();
-		// field components...
+	private void addMembershipPanel() {
+		membershipsPanel = new JPanel();
+
+		// membership text
+		JLabel l1 = new JLabel("Membership: ");
+		l1.setPreferredSize(new Dimension(100,40));
+		membershipText = new JTextField();
+		membershipText.setPreferredSize(new Dimension(200,100));
+
+		// message label
+		JLabel message = new JLabel();
+		message.setPreferredSize(new Dimension(100,40));
+
+		// Set button
+		JButton setMembership = new JButton();
+		setMembership.setText("Add Membership");
+		setMembership.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent evt) {	
+				if (membershipText.getText().isEmpty()) {
+					message.setText("Cannot inset empty membership field");
+				}
+				else {
+					ResumeBuilderController.getInstance().setMembership(membershipText.getText());
+					membershipText.setText("");
+					message.setText("Added membership");
+				}
+			}
+		});
+
+		membershipsPanel.add(l1);
+		membershipsPanel.add(membershipText);
+		membershipsPanel.add(message);
+		membershipsPanel.add(setMembership);
 	}
 
 	private void addExtraCurrPanel() {
