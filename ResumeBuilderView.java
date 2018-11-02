@@ -99,6 +99,9 @@ public class ResumeBuilderView implements ItemListener{
 	
 	// membershipsPanel
 	JTextField membershipText;
+	
+	// extraCurrPanel
+	JTextField activityText;
 
 	// Panel names that appear inside combo box
 	final static String PERSONALINFOPANEL = "Personal Info";
@@ -468,7 +471,49 @@ public class ResumeBuilderView implements ItemListener{
 
 	private void addExtraCurrPanel() {
 		extraCurrPanel = new JPanel();
-		// field components...
+		
+		// activity text
+		JLabel l1 = new JLabel("Activity: ");
+		l1.setPreferredSize(new Dimension(100,40));
+		activityText = new JTextField();
+		activityText.setPreferredSize(new Dimension(200,100));
+
+		// activity label
+		JLabel message = new JLabel();
+		message.setPreferredSize(new Dimension(100,40));
+		
+		// Scroll pane with text area that displays 
+		// activities that get added
+		JTextArea addedActivities = new JTextArea(10,20);
+		addedActivities.setEditable(false);
+		JScrollPane sp = new JScrollPane(addedActivities, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		sp.setPreferredSize(new Dimension(300,50));
+		ArrayList<String> activities = new ArrayList<>();
+
+		// Add button
+		JButton addActivity = new JButton();
+		addActivity.setText("Add Activity");
+		addActivity.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent evt) {	
+				if (activityText.getText().isEmpty()) {
+					message.setText("Cannot inset empty activity field");
+				}
+				else {
+					ResumeBuilderController.getInstance().setActivity(activityText.getText());
+					activities.add(activityText.getText());
+					addedActivities.setText(activities.toString());
+					activityText.setText("");
+					message.setText("Added");
+				}
+			}
+		});
+
+		extraCurrPanel.add(l1);
+		extraCurrPanel.add(activityText);
+		extraCurrPanel.add(message);
+		extraCurrPanel.add(addActivity);
+		extraCurrPanel.add(sp);
 	}
 
 	private void addObjectivePanel() {
