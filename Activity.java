@@ -11,24 +11,24 @@ import java.sql.Statement;
  *
  */
 public class Activity extends ResumeElement {
-	private String actvity;
+	private String activity;
 
 	/**
 	 * Constructor with parameter
 	 * @param membership String
 	 */
-	public Activity(String actvity) {
-		this.actvity = actvity;
+	public Activity(String activity) {
+		this.activity = activity;
 	}
 
 	// Static methods cannot be overridden
 
 	public static String getTableName() {
-		return "actvity";
+		return "activity";
 	}
 
 	public static String getFieldOrder() {
-		return "actvity";
+		return "activity";
 	}
 
 	public static String getSelectClause() {
@@ -37,7 +37,7 @@ public class Activity extends ResumeElement {
 
 	@Override
 	public String getInsertStatement() {
-		return "insert into " + getTableName() + " (" + getFieldOrder() + ") values ('" + actvity +  "')";
+		return "insert into " + getTableName() + " (" + getFieldOrder() + ") values ('" + activity +  "')";
 	}
 
 	@Override
@@ -46,7 +46,7 @@ public class Activity extends ResumeElement {
 			Statement stmt = getConnection().createStatement();
 			int row = stmt.executeUpdate(getInsertStatement());
 			if (row == 1)
-				System.out.println("Inserted actvity object into table");
+				System.out.println("Inserted activity object into table");
 		}
 		catch (SQLException e) {
 			e.printStackTrace();
@@ -54,15 +54,15 @@ public class Activity extends ResumeElement {
 	}
 
 	/**
-	 * @return the actvity
+	 * @return the activity
 	 */
 	public String getActivity() {
-		return actvity;
+		return activity;
 	}
 
 	@Override
 	public String toString() {
-		return "Actvity: " + actvity + "\n";
+		return "Activity: " + activity + "\n";
 	}
 
 }
