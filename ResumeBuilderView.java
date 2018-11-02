@@ -78,6 +78,24 @@ public class ResumeBuilderView implements ItemListener{
 	JTextField gradYear;
 	JCheckBox isAnticipated;
 	int educationCount = 0;
+	
+	// experiencePanel
+	JTextField cName;
+	JTextField cPos;
+	JTextField cLoc;
+	JTextField cStartDate;
+	JTextField cEndDate;
+	JTextArea cSumm;
+	JLabel expCountL = new JLabel();;
+	int expCount = 1;
+	
+	// publicationPanel
+	JTextField aName;
+	JTextField pTitle;
+	JTextField pYear;
+	JTextArea pSumm;
+	JLabel pubCountL = new JLabel();
+	int pubCount = 1;
 
 	// Panel names that appear inside combo box
 	final static String PERSONALINFOPANEL = "Personal Info";
@@ -135,7 +153,7 @@ public class ResumeBuilderView implements ItemListener{
 		addObjectivePanel();
 		addExperiencePanel();
 		addEducationPanel();
-		addPubsPanel();
+		addPublicationPanel();
 		addProfMemPanel();
 		addExtraCurrPanel();
 	}
@@ -143,11 +161,6 @@ public class ResumeBuilderView implements ItemListener{
 	//=====================
 	// Panel Initialization
 	//=====================
-
-	private void addExperiencePanel() {
-		experiencePanel = new JPanel();
-		// field components...
-	}
 
 	private void addEducationPanel() {
 		educationPanel = new JPanel();
@@ -268,11 +281,141 @@ public class ResumeBuilderView implements ItemListener{
 		educationPanel.add(count);
 		educationPanel.add(message);
 	}
-	private void addPubsPanel() {
-		pubsPanel = new JPanel();
-		// field components...
+	
+	private void addExperiencePanel() {
+		experiencePanel = new JPanel();
+		experiencePanel.setPreferredSize(new Dimension(200,400));
+		experiencePanel.setLayout(new GridLayout(8,2));
+		
+		JLabel l1 = new JLabel("Company Name: ");
+		l1.setPreferredSize(new Dimension(100,40));
+		cName = new JTextField();
+		cName.setPreferredSize(new Dimension(100,40));
+		
+		JLabel l2 = new JLabel("Position: ");
+		l2.setPreferredSize(new Dimension(100,40));
+		cPos = new JTextField();
+		cPos.setPreferredSize(new Dimension(100,40));
+		
+		JLabel l3 = new JLabel("Company Location: ");
+		l3.setPreferredSize(new Dimension(100,40));
+		cLoc = new JTextField();
+		cLoc.setPreferredSize(new Dimension(100,40));
+		
+		JLabel l4 = new JLabel("Start Date: ");
+		l4.setPreferredSize(new Dimension(100,40));
+		cStartDate = new HiddenTextField("mm-yyyy");
+		cStartDate.setPreferredSize(new Dimension(100,40));
+		
+		JLabel l5 = new JLabel("End Date: ");
+		l5.setPreferredSize(new Dimension(100,40));
+		cEndDate = new HiddenTextField("mm-yyyy");
+		cEndDate.setPreferredSize(new Dimension(100,40));
+		
+		JLabel l6 = new JLabel("Job Summary: ");
+		l6.setPreferredSize(new Dimension(100,40));
+		cSumm = new JTextArea();
+		JScrollPane cSummST = new JScrollPane(cSumm);
+		
+		JButton expDone = new JButton("Add Experience");
+		expDone.addActionListener(new ActionListener() {
+			@Override
+            public void actionPerformed(ActionEvent e) {
+				if(cName.getText().isEmpty() | cPos.getText().isEmpty() | cLoc.getText().isEmpty() | cStartDate.getText().isEmpty() | cEndDate.getText().isEmpty() | cSumm.getText().isEmpty()) {
+					JOptionPane.showMessageDialog(null, "All fields are required", "alert", JOptionPane.ERROR_MESSAGE);
+				}
+				else {
+					ResumeBuilderController.getInstance().setExperience(cName.getText(),cPos.getText(),cLoc.getText(),cStartDate.getText(),cEndDate.getText(),cSumm.getText());
+	                cName.setText("");
+	                cPos.setText("");
+	                cLoc.setText("");
+	                cStartDate.setText("");
+	                cEndDate.setText("");
+	                cSumm.setText("");
+	                expCountL.setText((expCount++) + " added");
+	                //System.out.println("Experience added...");
+				}
+            }
+		});
+		
+		experiencePanel.add(l1);
+		experiencePanel.add(cName);
+		experiencePanel.add(l2);
+		experiencePanel.add(cPos);
+		experiencePanel.add(l3);
+		experiencePanel.add(cLoc);
+		experiencePanel.add(l4);
+		experiencePanel.add(cStartDate);
+		experiencePanel.add(l5);
+		experiencePanel.add(cEndDate);
+		experiencePanel.add(l6);
+		experiencePanel.add(cSummST);
+		experiencePanel.add(expDone);
+		experiencePanel.add(expCountL);
 	}
-
+	
+	private void addPublicationPanel() {
+		pubsPanel = new JPanel();
+		pubsPanel.setPreferredSize(new Dimension(200,400));
+		pubsPanel.setLayout(new GridLayout(7,2));
+		
+		JLabel l1 = new JLabel("Author Name: ");
+		l1.setPreferredSize(new Dimension(100,40));
+		aName = new JTextField();
+		aName.setPreferredSize(new Dimension(100,40));
+		
+		JLabel l2 = new JLabel("Title: ");
+		l2.setPreferredSize(new Dimension(100,40));
+		pTitle = new JTextField();
+		pTitle.setPreferredSize(new Dimension(100,40));
+		
+		JLabel l3 = new JLabel("Publicaiton Year: ");
+		l3.setPreferredSize(new Dimension(100,40));
+		pYear = new HiddenTextField("yyyy");
+		pYear.setPreferredSize(new Dimension(100,40));
+		
+		JLabel l4 = new JLabel("Summary: ");
+		l4.setPreferredSize(new Dimension(100,40));
+		pSumm = new JTextArea();
+		JScrollPane pSummST = new JScrollPane(pSumm);
+		
+		JButton pubDone = new JButton("Add Publication");
+		pubDone.addActionListener(new ActionListener() {
+			@Override
+            public void actionPerformed(ActionEvent e) {
+				if(aName.getText().isEmpty() | pTitle.getText().isEmpty() | pSumm.getText().isEmpty()){
+					JOptionPane.showMessageDialog(null, "All fields are required...", "alert", JOptionPane.ERROR_MESSAGE);
+				}
+				else if(pYear.getText().length() != 4) {
+					JOptionPane.showMessageDialog(null, "Publication Year should be in 'yyyy' format...", "alert", JOptionPane.ERROR_MESSAGE);
+				}
+				else if(!isInt(pYear.getText())) {
+					JOptionPane.showMessageDialog(null, "Publication Year should be in 'yyyy' format...", "alert", JOptionPane.ERROR_MESSAGE);
+				}
+				else {
+					ResumeBuilderController.getInstance().setPublication(aName.getText(),pTitle.getText(),Integer.parseInt(pYear.getText()),pSumm.getText());
+					aName.setText("");
+	                pTitle.setText("");
+	                pYear.setText("");
+	                pSumm.setText("");
+	                pubCountL.setText((pubCount++) + " added");
+	                //System.out.println("Publication added...");
+				}
+            }
+		});
+		
+		pubsPanel.add(l1);
+		pubsPanel.add(aName);
+		pubsPanel.add(l2);
+		pubsPanel.add(pTitle);
+		pubsPanel.add(l3);
+		pubsPanel.add(pYear);
+		pubsPanel.add(l4);
+		pubsPanel.add(pSummST);
+		pubsPanel.add(pubDone);
+		pubsPanel.add(pubCountL);
+	}
+	
 	private void addProfMemPanel() {
 		profMemPanel = new JPanel();
 		// field components...
