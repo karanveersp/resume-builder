@@ -208,13 +208,15 @@ public class ResumeModel {
 	public void pack() throws Exception {
 		elements = new ArrayList<ResumeElement>();
 		
-		if (personalInfo == null | summary == null | objective == null | education == null | experience == null) {
+		if (personalInfo == null | education == null | experience == null) {
 			throw new MissingRequiredFieldsException("Missing Required Fields");
 		}
 		else {
 			elements.add(personalInfo);
-			elements.add(summary);
-			elements.add(objective);
+			if (summary != null)
+				elements.add(summary);
+			if (objective != null)
+				elements.add(objective);
 			for (Education e: education) {
 				elements.add(e);
 			}
