@@ -1,3 +1,4 @@
+
 CREATE TABLE personal_info (
 first_name TINYTEXT NOT NULL,
 last_name TINYTEXT NOT NULL,

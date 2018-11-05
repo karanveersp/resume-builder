@@ -1,4 +1,3 @@
-package edu.sollers.javaprog.resumerbuilder;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -164,5 +163,4 @@ public class PersonalInfo extends ResumeElement {
 				+   "zip: "       + zip       + "\n";
 		return val;
     }
-
 }
