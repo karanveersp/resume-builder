@@ -52,14 +52,101 @@ public class ResumeBuilderController {
 		return instance;
 	}
 	
+	/**
+	 * Pass values to the controller which then passes
+	 * to the model.
+	 * @param firstName
+	 * @param lastName
+	 * @param email
+	 * @param street1
+	 * @param street2
+	 * @param city
+	 * @param state
+	 * @param zip
+	 */
+	public void setPersonalInfo(String firstName, String lastName, String email, String street1, String street2, String city,
+			String state, String zip) {
+		getModel().setPersonalInfo(firstName, lastName, email, street1, street2, city, state, zip);
+	}
+
+	/**
+	 * Pass values to the controller which then passes
+	 * to the model.
+	 * @param summary
+	 */
+	public void setSummary(String summary) {
+		getModel().setSummary(summary);
+	}
+
+	/**
+	 * Pass values to the controller which then passes
+	 * to the model.
+	 * @param objective
+	 */
 	public void setObjective(String objective) {
 		getModel().setObjective(objective);
 	}
 	
+	/**
+	 * Pass values to the controller which then passes
+	 * to the model.
+	 * @param schoolName
+	 * @param schoolCity
+	 * @param schoolState
+	 * @param degree
+	 * @param major
+	 * @param gradMonth
+	 * @param gradYear
+	 * @param isAnticipated
+	 */
 	public void setEducation(String schoolName, String schoolCity, String schoolState, String degree, String major, String gradMonth, String gradYear, boolean isAnticipated) {
 		getModel().setEducation(schoolName, schoolCity, schoolState, degree, major, gradMonth, gradYear, isAnticipated);
 	}
-
+	
+	/**
+	 * Pass values to the controller which then passes
+	 * to the model.
+	 * @param cmpName
+	 * @param pos
+	 * @param cmpLoc
+	 * @param startDate
+	 * @param endDate
+	 * @param cmpSumm
+	 */
+	public void setExperience(String cmpName, String pos, String cmpLoc, String startDate, String endDate, String cmpSumm) {
+		getModel().setExperience(cmpName, pos, cmpLoc, startDate, endDate, cmpSumm);
+	}
+	
+	/**
+	 * Pass values to the controller which then passes
+	 * to the model.
+	 * @param authName
+	 * @param title
+	 * @param year
+	 * @param summary
+	 */
+	public void setPublication(String authName, String title, int year, String summary) {
+		getModel().setPublication(authName, title, year, summary);
+	}
+	
+	/**
+	 * Pass values to the controller which then passes
+	 * to the model.
+	 * @param membership
+	 */
+	public void setMembership(String membership) {
+		getModel().setMembership(membership);
+	}
+	
+	/**
+	 * Pass values to the controller which then passes
+	 * to the model.
+	 * @param act String
+	 */
+	public void setActivity(String act) {
+		getModel().setActivity(act);
+	}
+	
 	public ResumeModel getModel() {
 		return resume;
 	}

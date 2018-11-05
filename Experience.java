@@ -1,5 +1,6 @@
 package edu.sollers.javaprog.resumerbuilder;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -9,75 +10,125 @@ import java.sql.Statement;
 
 public class Experience extends ResumeElement {
 	
-	private String cmp_name;
+	private String cmpName;
 	private String pos;
-	private String cmp_loc;
-	private String start_date;
-	private String end_date;
-	private String cmp_summ;
+	private String cmpLoc;
+	private String startDate;
+	private String endDate;
+	private String cmpSumm;
 	
-	public Experience(String cmp_name, String pos, String cmp_loc, String start_date, String end_date, String cmp_summ) {
-		this.cmp_name = cmp_name;
+	/**
+	 * @param cmpName
+	 * @param pos
+	 * @param cmpLoc
+	 * @param startDate
+	 * @param endDate
+	 * @param cmpSumm
+	 */
+	public Experience(String cmpName, String pos, String cmpLoc, String startDate, String endDate, String cmpSumm) {
+		this.cmpName = cmpName;
 		this.pos = pos;
-		this.cmp_loc = cmp_loc;
-		this.start_date = start_date;
-		this.end_date = end_date;
-		this.cmp_summ = cmp_summ;
-	}
-	
-	public String getCmp_name() {
-		return cmp_name;
+		this.cmpLoc = cmpLoc;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.cmpSumm = cmpSumm;
 	}
 
+	/**
+	 * @return the cmpName
+	 */
+	public String getCmpName() {
+		return cmpName;
+	}
+
+	/**
+	 * @return the pos
+	 */
 	public String getPos() {
 		return pos;
 	}
 
-	public String getCmp_loc() {
-		return cmp_loc;
+	/**
+	 * @return the cmpLoc
+	 */
+	public String getCmpLoc() {
+		return cmpLoc;
 	}
 
-	public String getStart_date() {
-		return start_date;
+	/**
+	 * @return the startDate
+	 */
+	public String getStartDate() {
+		return startDate;
 	}
 
-	public String getEnd_date() {
-		return end_date;
+	/**
+	 * @return the endDate
+	 */
+	public String getEndDate() {
+		return endDate;
 	}
 
-	public String getCmp_summ() {
-		return cmp_summ;
+	/**
+	 * @return the cmpSumm
+	 */
+	public String getCmpSumm() {
+		return cmpSumm;
 	}
 
 	public static String getFieldOrder() {
-    	return "cmp_name, pos, cmp_loc, start_date, end_date, cmp_summ";
-    }
+    		return "id, cmp_name, pos, cmp_loc, start_date, end_date, cmp_summ";
+    	}
     
 	public static String getTableName() {
-    	return "exp_info";
-    }
+    		return "experience";
+    	}
     
-    public static String getSelectClause() {
-    	return "select " + getFieldOrder() + " from " + getTableName();
-    }
+    	public static String getSelectClause() {
+    		return "select " + getFieldOrder() + " from " + getTableName();
+    	}
     
-    public String getInsertStatement() {
-    	return "insert into " + getTableName() + " (" + getFieldOrder() + ") values ('" + cmp_name + "', '" + pos + "', '" + cmp_loc + "', '" + start_date + "', '" + end_date + "', '" + cmp_summ +"')";
-    }
-    
-    public String getUpdateStatement() {
-    	return "update " + getTableName() + "";
-    }
-    
-    public void save() {
-    	try {
+	public String getInsertStatement(int id) {
+		return "insert into " + getTableName() + " (" + getFieldOrder() + ") values (" 
+				+ id + ", '"
+				+ cmpName + "', '"
+				+ pos + "', '"
+				+ cmpLoc + "', '"
+				+ startDate + "', '"
+				+ endDate + "', '"
+				+ cmpSumm + "')";
+	}
+	
+	public String getUpdateStatement(int id) {
+		return "update " + getTableName() + " set "
+				+ "cmp_summ = '" + cmpSumm + "' "
+				+ "where id = " + id;
+	}
+
+    	public void save() {
+		try {
 			Statement stmt = getConnection().createStatement();
-			stmt.executeQuery(getInsertStatement());
+	    	ResultSet rs = stmt.executeQuery(getSelectClause());
+			
+			boolean expExists = false;
+			while (rs.next()) {
+				if (cmpName.equals(rs.getString("cmp_name")) && pos.equals(rs.getString("pos")) &&
+					cmpLoc.equals(rs.getString("cmp_loc")) && startDate.equals(rs.getString("start_date")) &&
+					endDate.equals(rs.getString("end_date"))) {					
+					expExists = true;
+					stmt.executeUpdate(getUpdateStatement(rs.getInt("id")));
+					System.out.print("Experience Summary updated into database");
+				}
+			}
+			if (!expExists) {
+				rs = stmt.executeQuery("select max(id) FROM " + getTableName());
+				rs.next();
+				int id = (rs.getInt(1) == 0) ? 1 : rs.getInt(1) + 1;
+				stmt.executeUpdate(getInsertStatement(id));
+				System.out.print("Experience Info inserted into database");
+			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-    	
-    	System.out.print("Experience Info inserted into database");
-    }
+   	}
 }

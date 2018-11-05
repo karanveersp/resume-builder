@@ -71,21 +71,44 @@ public class Education extends ResumeElement {
 				+ ")";
 	}
 
-	public String getUpdateStatement() {
+	/**
+	 * Updates education row with given id
+	 * @param id
+	 * @return update query statement
+	 */
+	public String getUpdateStatement(int id) {
 		return "update " + getTableName() + " set "
-				+ "school_name = '" + schoolName  + "', ";
+				+ "school_name = '" + schoolName + "', "
+				+ "school_city = '" + schoolCity + "', "
+				+ "school_state = '" + schoolState + "', "
+				+ "degree = '" + degree + "', "
+				+ "major = '" + major + "', "
+				+ "grad_month = '" + gradMonth + "', "
+				+ "grad_year = " + gradYear + ", "
+				+ "is_anticipated = " + isAnticipated
+				+ " WHERE id = " + id;
 	}
 
 	public void save() {
 		try {
 			Statement stmt = getConnection().createStatement();
 			ResultSet rs = stmt.executeQuery(getSelectClause());
+			
+			boolean schoolExists = false;
 			while (rs.next()) {
-				if (schoolName.equals(rs.getString(2)) && schoolCity.equals(rs.getString(3))) {
+				if (schoolName.equals(rs.getString("school_name")) && schoolCity.equals(rs.getString("school_city"))) {
 					
-					// school exists in table so perform an update
-					
+					schoolExists = true;
+					// school exists in table so perform an UPDATE
+					stmt.executeUpdate(getUpdateStatement(rs.getInt("id")));
 				}
+			}
+			if (!schoolExists) {
+				// if no matching school found in table, insert new school
+				rs = stmt.executeQuery("SELECT max(id) FROM " + getTableName());
+				rs.next();
+				int id = (rs.getInt(1) == 0) ? 1 : rs.getInt(1) + 1;
+				stmt.executeUpdate(getInsertStatement(id));
 			}
 				System.out.println("Inserted Education object into table");
 		} catch (SQLException e) {
@@ -94,7 +117,7 @@ public class Education extends ResumeElement {
 	}
 
 	//----------------------------
-	// Getters/Setters
+	// Getters
 	//----------------------------
 
 	/**
@@ -105,24 +128,10 @@ public class Education extends ResumeElement {
 	}
 
 	/**
-	 * @param schoolName the schoolName to set
-	 */
-	public void setSchoolName(String schoolName) {
-		this.schoolName = schoolName;
-	}
-
-	/**
 	 * @return the schoolCity
 	 */
 	public String getSchoolCity() {
 		return schoolCity;
-	}
-
-	/**
-	 * @param schoolCity the schoolCity to set
-	 */
-	public void setSchoolCity(String schoolCity) {
-		this.schoolCity = schoolCity;
 	}
 
 	/**
@@ -133,24 +142,10 @@ public class Education extends ResumeElement {
 	}
 
 	/**
-	 * @param schoolState the schoolState to set
-	 */
-	public void setSchoolState(String schoolState) {
-		this.schoolState = schoolState;
-	}
-
-	/**
 	 * @return the degree
 	 */
 	public String getDegree() {
 		return degree;
-	}
-
-	/**
-	 * @param degree the degree to set
-	 */
-	public void setDegree(String degree) {
-		this.degree = degree;
 	}
 
 	/**
@@ -161,24 +156,10 @@ public class Education extends ResumeElement {
 	}
 
 	/**
-	 * @param major the major to set
-	 */
-	public void setMajor(String major) {
-		this.major = major;
-	}
-
-	/**
 	 * @return the gradMonth
 	 */
 	public String getGradMonth() {
 		return gradMonth;
-	}
-
-	/**
-	 * @param gradMonth the gradMonth to set
-	 */
-	public void setGradMonth(String gradMonth) {
-		this.gradMonth = gradMonth;
 	}
 
 	/**
@@ -189,26 +170,12 @@ public class Education extends ResumeElement {
 	}
 
 	/**
-	 * @param gradYear the gradYear to set
-	 */
-	public void setGradYear(int gradYear) {
-		this.gradYear = gradYear;
-	}
-
-	/**
 	 * @return the isAnticipated
 	 */
 	public boolean isAnticipated() {
 		return isAnticipated;
 	}
 
-	/**
-	 * @param isAnticipated the isAnticipated to set
-	 */
-	public void setAnticipated(boolean isAnticipated) {
-		this.isAnticipated = isAnticipated;
-	}
-	
 	@Override
 	public String toString() {
 		return "School Name: " + schoolName + "\n"
@@ -220,11 +187,4 @@ public class Education extends ResumeElement {
 				+ "Grad Year: " + gradYear + "\n"
 				+ "IsAnticipated: " + isAnticipated + "\n";
 	}
-
-	
-	
-	
-	
-	
-	
 }
